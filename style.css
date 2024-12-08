@@ -53,34 +53,6 @@
   border-bottom-right-radius: 8px;
 }
 
-.exeed {
-  width: 100%;
-  height: auto;
-  display: flex;
-  justify-content: center;
-}
-
-.exeed button {
-  border: none;
-  padding: 20px;
-  border-radius: 8px;
-  color: #4caf50;
-  font-size: 15px;
-  background-color: rgb(234, 234, 234);
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-button:hover {
-  cursor: pointer;
-  background-color: #4caf50;
-  color: white;
-}
-
-button:active {
-  color: #4caf50;
-  background-color: rgb(234, 234, 234);
-}
-
 .mini-box {
   position: fixed;
   flex-direction: column;
@@ -132,4 +104,83 @@ button:active {
   display: block;
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
+}
+
+.exeed {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.exeed button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: none;
+  padding: 20px;
+  border-radius: 8px;
+  color: #4caf50;
+  font-size: 15px;
+  background-color: rgb(234, 234, 234);
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: #4caf50;
+  color: white;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+button:active {
+  color: #4caf50;
+  background-color: rgb(234, 234, 234);
+  transition: background-color 0.02s ease, color 0.02s ease;
+}
+
+.icon-container {
+  width: 20px;
+  height: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.icon-container .wave {
+  width: 4px;
+  height: 100%;
+  background-color: #4caf50;
+  animation: wave 1.2s infinite;
+  animation-play-state: paused;
+}
+
+.icon-container .wave:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.icon-container .wave:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.icon-container .wave:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+/* Khi nhạc phát */
+.icon-container.playing .wave {
+  animation-play-state: running;
+}
+
+/* Keyframes hiệu ứng sóng */
+@keyframes wave {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(1.5);
+  }
 }

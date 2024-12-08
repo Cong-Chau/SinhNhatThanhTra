@@ -8,6 +8,19 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+function toggleAudio() {
+  const audio = document.getElementById("audio");
+  const iconContainer = document.getElementById("audio-icon");
+
+  if (audio.paused) {
+    audio.play();
+    iconContainer.classList.add("playing");
+  } else {
+    audio.pause();
+    iconContainer.classList.remove("playing");
+  }
+}
+
 function createMiniBox() {
   const miniBox = document.createElement("div");
   miniBox.classList.add("mini-box");
@@ -80,20 +93,32 @@ function createMiniBox() {
 }
 
 runBeforeMiniBox = function () {
-  const video = document.getElementById("video");
-  video.volume = 0.2;
-  if (video.paused) {
-    video.play();
-  } else {
-    video.pause();
+  const audio = document.getElementById("audio");
+  audio.volume = 0.2;
+
+  if (audio.paused) {
+    audio.play();
   }
+
+  let intervalId = null;
+
+  const checkTime = () => {
+    if (audio.currentTime >= 15) {
+      audio.removeEventListener("timeupdate", checkTime);
+      console.log("Audio đã phát đủ 15 giây, bắt đầu tạo MiniBox.");
+
+      intervalId = setInterval(createMiniBox, 100);
+
+      audio.addEventListener("ended", () => {
+        clearInterval(intervalId);
+      });
+    }
+  };
+
+  audio.addEventListener("timeupdate", checkTime);
 };
 
-document
-  .querySelector(".exeed button")
-  .addEventListener("click", function (event) {
-    runBeforeMiniBox();
-    setTimeout(function () {
-      setInterval(createMiniBox, 100);
-    }, 15500); // 15.5s
-  });
+document.querySelector(".exeed button").addEventListener("click", function () {
+  toggleAudio();
+  runBeforeMiniBox();
+});
